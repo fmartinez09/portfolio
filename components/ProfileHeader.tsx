@@ -1,6 +1,6 @@
 // components/ProfileHeader.tsx
 'use client'
-import { Mail, Copy, Dot } from 'lucide-react'
+import { Mail, Copy, Dot, Github, Linkedin } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 
@@ -48,9 +48,28 @@ export default function ProfileHeader() {
 
       {/* social icons (usa tus enlaces reales) */}
       <ul className="mt-4 flex items-center gap-5 text-zinc-600 dark:text-zinc-500">
-        <li><a className="opacity-70 transition hover:opacity-100" href="https://x.com/..." aria-label="X">𝕏</a></li>
-        <li><a className="opacity-70 transition hover:opacity-100" href="https://github.com/fer" aria-label="GitHub"></a></li>
-        <li><a className="opacity-70 transition hover:opacity-100" href="https://linkedin.com/in/..." aria-label="LinkedIn">in</a></li>
+        <li>
+          <a
+            className="opacity-70 transition hover:opacity-100"
+            href="https://github.com/fmartinez09"
+            aria-label="GitHub"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Github className="h-5 w-5" />
+          </a>
+        </li>
+        <li>
+          <a
+            className="opacity-70 transition hover:opacity-100"
+            href="https://www.linkedin.com/in/fmartinez01/"
+            aria-label="LinkedIn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Linkedin className="h-5 w-5" />
+          </a>
+        </li>
         {/* agrega más si quieres */}
       </ul>
 
@@ -77,9 +96,11 @@ export default function ProfileHeader() {
       <div className="mt-4 flex items-center text-[12px] text-zinc-500 dark:text-zinc-500">
         <span>CHL, Temuco</span>
         <Dot className="mx-1 h-4 w-4 text-zinc-500 dark:text-zinc-600" />
+        {/*
         <span>−33.45° S</span>
         <Dot className="mx-1 h-4 w-4 text-zinc-500 dark:text-zinc-600" />
         <span>−70.66° W</span>
+        */}
       </div>
 
       {/* about breve */}

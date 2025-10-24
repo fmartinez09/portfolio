@@ -1,15 +1,16 @@
 'use client'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { Home, Layers, PenSquare, Mail, Search } from 'lucide-react'
+import { Home, Layers, PenSquare, Mail, Search, PersonStanding } from 'lucide-react'
 import ThemeToggle from './ThemeToggle'
 
 const items = [
   { href: '/', icon: Home, label: 'Home' },
-  { href: '/work', icon: Layers, label: 'Work' },
+  // { href: '/work', icon: Layers, label: 'Work' },
   { href: '/blog', icon: PenSquare, label: 'Blog' },
-  { href: '/contact', icon: Mail, label: 'Contact' },
-  { href: '/search', icon: Search, label: 'Search' },
+  // { href: '/contact', icon: Mail, label: 'Contact' },
+   { href: '/about', icon: PersonStanding, label: 'About' },
+  // { href: '/search', icon: Search, label: 'Search' },
 ]
 
 export default function Sidebar() {
@@ -20,7 +21,7 @@ export default function Sidebar() {
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 1 }}
         transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed left-16 top-0 bottom-0 hidden md:block w-px bg-zinc-300 dark:bg-white/10 origin-top"
+        className="fixed left-16 top-0 bottom-0 hidden md:block w-px bg-zinc-300 dark:bg-white/10 origin-top z-50"
       />
       
       {/* Sidebar */}
@@ -28,7 +29,7 @@ export default function Sidebar() {
         initial={{ x: -20, opacity: 0, filter: 'blur(1px)' }}
         animate={{ x: 0, opacity: 1, filter: 'blur(0px)' }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed left-4 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-6"
+        className="fixed left-4 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-6 z-50"
       >
         {items.map(({ href, icon: Icon, label }, i) => (
           <motion.div

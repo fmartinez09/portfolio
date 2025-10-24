@@ -18,7 +18,7 @@ export default function Reveal({
       whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       viewport={{ once: true, amount, margin: '-10% 0px -10% 0px' }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay }}
-      className={className + ' transform-gpu will-change-[opacity,transform,filter]'}
+  className={className}
     >
       {children}
     </motion.div>

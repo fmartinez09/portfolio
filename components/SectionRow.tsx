@@ -21,7 +21,11 @@ export default function SectionRow({
         <div className="w-full">
           {topAction ? <div className="mb-4 flex justify-center">{topAction}</div> : null}
           {children}
-          {bottomAction ? <div className="mt-4 flex justify-center">{bottomAction}</div> : null}
+          {bottomAction ? (
+            <div className={size === 'sm' ? 'mt-6 flex justify-center' : 'mt-4 flex justify-center'}>
+              {bottomAction}
+            </div>
+          ) : null}
         </div>
       </div>
     </section>

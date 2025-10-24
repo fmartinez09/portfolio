@@ -11,8 +11,8 @@ export default function WritingList({ limit = 3 }: { limit?: number }) {
   const viewAllBtn = (
     <Link
       href="/blog"
-      className="inline-flex items-center justify-center gap-2
-                 rounded-lg border border-zinc-300 dark:border-white/10 bg-zinc-50 dark:bg-white/[0.03] px-4 py-2
+      className="inline-flex items-center justify-center gap-2 w-full max-w-[720px]
+                 rounded-xl border border-zinc-300 dark:border-white/10 bg-zinc-50 dark:bg-white/[0.03] px-5 py-3
                  text-[13px] text-zinc-700 dark:text-zinc-200 transition
                  hover:bg-zinc-100 dark:hover:bg-white/[0.06] hover:text-zinc-900 dark:hover:text-white
                  focus:outline-none focus:ring-2 focus:ring-zinc-300 dark:focus:ring-white/20"

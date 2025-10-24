@@ -17,7 +17,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug?: st
   return (
     <section className="flex-1 px-6 md:px-12 py-16 overflow-y-auto">
       <div className="max-w-[720px] mx-auto">
-        {/* Fecha y título */}
+        {/* Fecha y título 
         <div className="mb-8">
           <div className="text-sm text-zinc-500">{dateFmt}</div>
           <h1 className="mt-2 text-4xl md:text2xl font-semibold tracking-tight text-zinc-100">
@@ -29,8 +29,9 @@ export default async function PostPage({ params }: { params: Promise<{ slug?: st
             </span>
           </div>
         </div>
+        
 
-        {/* Opcional: metadatos */}
+        Opcional: metadatos 
         <dl className="grid grid-cols-2 gap-y-2 text-sm text-zinc-400 mb-10">
           <dt>Cliente</dt><dd>Alpha</dd>
           <dt>Timeline</dt><dd>Jan 22 – Jul 22</dd>
@@ -38,10 +39,10 @@ export default async function PostPage({ params }: { params: Promise<{ slug?: st
           <dt>Outcome</dt><dd>+45% conversion</dd>
         </dl>
 
-        {/* Divider sutil */}
+         Divider sutil *
         <div className="my-6 h-px w-full bg-white/10" />
 
-        {/* Contenido markdown */}
+         Contenido markdown */}
         <MarkdownProse>{post.body}</MarkdownProse>
       </div>
     </section>
