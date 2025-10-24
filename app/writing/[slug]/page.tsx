@@ -26,11 +26,13 @@ export default function PostPage({ params }: { params: { slug: string } }) {
           </aside>
 
           <article className="pt-10 max-w-[720px] mx-auto px-6 md:px-0">
+             {/*
             {post.cover && (
               <div className="mb-6 overflow-hidden rounded-2xl border border-white/10">
                 <Image src={post.cover} alt={post.title} width={1280} height={720} className="h-auto w-full" />
               </div>
             )}
+               */}
             <div className="text-xs text-zinc-500">{new Date(post.date).toDateString()}</div>
             <h1 className="mt-2 text-3xl font-semibold leading-tight">{post.title}</h1>
             <div className="mt-2">
