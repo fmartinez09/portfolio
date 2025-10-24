@@ -16,7 +16,7 @@ export default async function PostPage({ params }: { params: Promise<{ slug?: st
 
   return (
     <section className="flex-1 px-6 md:px-12 py-16 overflow-y-auto">
-      <div className="max-w-[700px] mx-auto">
+      <div className="max-w-[720px] mx-auto">
         {/* Fecha y título */}
         <div className="mb-8">
           <div className="text-sm text-zinc-500">{dateFmt}</div>

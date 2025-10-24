@@ -5,13 +5,13 @@ import SectionRow from "./SectionRow"
 
 export default function AboutSection() {
   return (
-    <SectionRow label="About">
+    <SectionRow label="About" size="sm">
       <motion.div
-        initial={{ opacity: 0, y: 8, filter: "blur(4px)" }}
+        initial={{ opacity: 0, y: 8, filter: "blur(1px)" }}
         whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         viewport={{ once: true, amount: 0.4 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="space-y-5 text-[15px] leading-8 text-zinc-300"
+        className="space-y-5 text-[15px] leading-8 text-zinc-600 dark:text-zinc-300"
       >
         <p>
           I'm Fernando, a multidisciplinary software engineer based in Chile. I focus on

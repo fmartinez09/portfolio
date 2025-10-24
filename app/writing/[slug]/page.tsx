@@ -25,7 +25,7 @@ export default function PostPage({ params }: { params: { slug: string } }) {
             </ul>
           </aside>
 
-          <article className="pt-10">
+          <article className="pt-10 max-w-[720px] mx-auto px-6 md:px-0">
             {post.cover && (
               <div className="mb-6 overflow-hidden rounded-2xl border border-white/10">
                 <Image src={post.cover} alt={post.title} width={1280} height={720} className="h-auto w-full" />

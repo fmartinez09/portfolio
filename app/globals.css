@@ -48,37 +48,37 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: oklch(0.99 0 0);
+  --foreground: oklch(0.15 0 0);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.15 0 0);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.15 0 0);
+  --primary: oklch(0.2 0 0);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.95 0 0);
+  --secondary-foreground: oklch(0.2 0 0);
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.5 0 0);
+  --accent: oklch(0.95 0 0);
+  --accent-foreground: oklch(0.2 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: oklch(0.9 0 0);
+  --input: oklch(0.9 0 0);
+  --ring: oklch(0.7 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: oklch(0.98 0 0);
+  --sidebar-foreground: oklch(0.15 0 0);
+  --sidebar-primary: oklch(0.2 0 0);
+  --sidebar-primary-foreground: oklch(0.98 0 0);
+  --sidebar-accent: oklch(0.95 0 0);
+  --sidebar-accent-foreground: oklch(0.2 0 0);
+  --sidebar-border: oklch(0.9 0 0);
+  --sidebar-ring: oklch(0.7 0 0);
 }
 
 .dark {
@@ -126,32 +126,52 @@
 }
 
 .prose :where(a):not(:where(.not-prose *)) {
-  @apply text-zinc-200 underline decoration-white/20;
+  @apply text-zinc-200 dark:text-zinc-200 text-zinc-700 underline decoration-white/20 dark:decoration-white/20 decoration-zinc-300;
 }
 
 /* Ajustes finos a la prosa */
 .prose :where(a):not(:where(.not-prose *)) {
   text-decoration: underline;
   text-underline-offset: 3px;
+  text-decoration-color: rgb(0 0 0 / .2);
+}
+
+.dark .prose :where(a):not(:where(.not-prose *)) {
   text-decoration-color: rgb(255 255 255 / .2);
 }
 
 .prose :where(a:hover):not(:where(.not-prose *)) {
+  text-decoration-color: rgb(0 0 0 / .5);
+}
+
+.dark .prose :where(a:hover):not(:where(.not-prose *)) {
   text-decoration-color: rgb(255 255 255 / .5);
 }
 
 .prose :where(blockquote):not(:where(.not-prose *)) {
+  border-left-color: rgb(0 0 0 / .12);
+}
+
+.dark .prose :where(blockquote):not(:where(.not-prose *)) {
   border-left-color: rgb(255 255 255 / .12);
 }
 
 .prose :where(hr):not(:where(.not-prose *)) {
+  border-color: rgb(0 0 0 / .08);
+}
+
+.dark .prose :where(hr):not(:where(.not-prose *)) {
   border-color: rgb(255 255 255 / .08);
 }
 
 .prose :where(code):not(:where(.not-prose *)) {
-  background: rgb(255 255 255 / .06);
+  background: rgb(0 0 0 / .06);
   padding: .15rem .35rem;
   border-radius: .375rem;
+}
+
+.dark .prose :where(code):not(:where(.not-prose *)) {
+  background: rgb(255 255 255 / .06);
 }
 
 .prose {
@@ -160,8 +180,12 @@
 
 .prose img {
   border-radius: 1rem;
-  border: 1px solid rgb(255 255 255 / 0.1);
+  border: 1px solid rgb(0 0 0 / 0.1);
   box-shadow: 0 4px 16px rgb(0 0 0 / 0.25);
+}
+
+.dark .prose img {
+  border: 1px solid rgb(255 255 255 / 0.1);
 }
 
 /* --------------------------------------------- */
@@ -169,7 +193,7 @@
 /* --------------------------------------------- */
 
 .prose {
-  @apply text-[15px] leading-8 text-zinc-300;
+  @apply text-[15px] leading-8 text-zinc-600 dark:text-zinc-300;
   font-family: var(--font-geist-sans);
   max-width: 680px;
   margin-left: auto;
@@ -178,39 +202,39 @@
 
 /* Titulares más pequeños y sobrios */
 .prose h1 {
-  @apply mt-10 mb-5 text-2xl md:text-3xl font-semibold tracking-tight text-zinc-100;
+  @apply mt-10 mb-5 text-2xl md:text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-100;
 }
 
 .prose h2 {
-  @apply mt-8 mb-4 text-xl md:text-2xl font-semibold tracking-tight text-zinc-200;
+  @apply mt-8 mb-4 text-xl md:text-2xl font-semibold tracking-tight text-zinc-800 dark:text-zinc-200;
 }
 
 .prose h3 {
-  @apply mt-6 mb-3 text-lg md:text-xl font-medium tracking-tight text-zinc-300;
+  @apply mt-6 mb-3 text-lg md:text-xl font-medium tracking-tight text-zinc-700 dark:text-zinc-300;
 }
 
 /* Texto normal */
 .prose p {
-  @apply mb-6 text-[15.5px] leading-8 text-zinc-300;
+  @apply mb-6 text-[15.5px] leading-8 text-zinc-600 dark:text-zinc-300;
 }
 
 /* Citas, listas y código */
 .prose blockquote {
-  @apply my-6 border-l-2 pl-4 italic text-zinc-400;
+  @apply my-6 border-l-2 pl-4 italic text-zinc-500 dark:text-zinc-400;
 }
 
 .prose li {
-  @apply leading-7 text-zinc-300;
+  @apply leading-7 text-zinc-600 dark:text-zinc-300;
 }
 
 .prose pre {
-  @apply my-6 overflow-x-auto rounded-xl border border-white/10 bg-white/[0.03] p-4 text-[13.5px];
+  @apply my-6 overflow-x-auto rounded-xl border border-zinc-300 dark:border-white/10 bg-zinc-50 dark:bg-white/[0.03] p-4 text-[13.5px];
 }
 
 .prose code {
-  @apply text-[13.5px] text-zinc-200;
+  @apply text-[13.5px] text-zinc-700 dark:text-zinc-200;
 }
 
 .prose strong {
-  @apply text-zinc-100 font-semibold;
+  @apply text-zinc-800 dark:text-zinc-100 font-semibold;
 }
