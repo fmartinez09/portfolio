@@ -1,7 +1,10 @@
-# Introduction to FoundationDB
-
-_September 27, 2025 · category: Engineering_
-
+---
+title: "Introduction to FoundationDB"
+date: "2025-09-29"
+category: "Engineering"
+author: "Fernando Martínez"
+cover: "/images/neuron.avif"
+excerpt: "The foundation of distributed systems"
 ---
 
 Currently, we can run **FoundationDB** from the official Docker mirror published by CI: https://hub.docker.com/r/foundationdb/foundationdb

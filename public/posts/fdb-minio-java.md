@@ -1,6 +1,11 @@
-# FDB + MinIO: Metadata (Java)
-
-_September 29, 2025 · category: Engineering_
+---
+title: "FDB + MinIO: Metadata (Java)"
+date: "2025-09-29"
+category: "Engineering"
+author: "Fernando Martínez"
+cover: "/images/seaweedfs.webp"
+excerpt: "We'll build a small HTTP service that registers and retrieves blob metadata stored in MinIO."
+---
 
 We’ll build a small **HTTP service** that registers and retrieves **blob metadata** stored in **MinIO**.
 
