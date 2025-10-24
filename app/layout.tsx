@@ -1,21 +1,21 @@
-import './globals.css'
-import Providers from './providers'
-import Sidebar from '@/components/Sidebar'
-import Footer from '@/components/Footer'
+import type { Metadata } from "next";
+import "./globals.css";
+import ClientLayout from "./ClientLayout";
 
-export const metadata = { title: 'Fernando · Portfolio' }
+export const metadata: Metadata = {
+  title: "Fernando · Portfolio",
+};
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="es" suppressHydrationWarning>
       <body className="min-h-dvh antialiased">
-        <Providers>
-          <Sidebar />
-          {/* Keep main content centered like the footer — remove the left padding that pushed content to the right */}
-          <div>{children}</div>
-          <Footer />
-        </Providers>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
-  )
+  );
 }
