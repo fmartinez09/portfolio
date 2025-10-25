@@ -1,20 +1,35 @@
 import AboutSection from '@/components/AboutSection'
 import SectionRow from '@/components/SectionRow'
 
+
 export default function AboutPage() {
     return (
-        <main className="space-y-12 md:space-y-16 pt-12 md:pt-30">
+        <main className="space-y-12 md:space-y-16 pt-12 md:pt-32">
             <AboutSection />
-
             {/* Experience */}
             <SectionRow label="Experience" size="sm">
                 <div className="space-y-6">
+                    {/* Fullstack Developer */}
                     <div className="grid grid-cols-[160px_minmax(0,1fr)] items-start gap-6">
-                        <div className="text-sm text-zinc-500">June 2024 — Now</div>
+                        <div className="text-sm text-zinc-600 dark:text-zinc-500">June 2024 — Now</div>
                         <div>
-                            <div className="font-semibold text-zinc-100">Fullstack Developer</div>
-                            <div className="mt-1 text-sm text-zinc-500">Built and maintained Java Spring Boot microservices and React front-ends integrated with Oracle 12c
-                                databases serving hundreds of daily users.</div>
+                            <div className="font-semibold text-foreground">Fullstack Developer</div>
+                            <div className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                                Built and maintained Java Spring Boot microservices and React front-ends integrated with Oracle 12c,
+                                serving hundreds of daily users. Deployed to Kubernetes with CI/CD, monitoring, and fault-injection
+                                testing; introduced GitHub Actions and IaC (Packer/Terraform).
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Data Engineering Assistant */}
+                    <div className="grid grid-cols-[160px_minmax(0,1fr)] items-start gap-6">
+                        <div className="text-sm text-zinc-600 dark:text-zinc-500">Aug 2022 — Dec 2023</div>
+                        <div>
+                            <div className="font-semibold text-foreground">Data Engineering Assistant</div>
+                            <div className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                                Teaching assistant in data engineering; analytics with R and ML/DL/Data Mining in Python (scikit-learn, Keras).
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -24,10 +39,12 @@ export default function AboutPage() {
             <SectionRow label="Education" size="sm">
                 <div className="space-y-6">
                     <div className="grid grid-cols-[160px_minmax(0,1fr)] items-start gap-6">
-                        <div className="text-sm text-zinc-500">March 2019 – March 2024</div>
+                        <div className="text-sm text-zinc-600 dark:text-zinc-500">March 2019 — March 2024</div>
                         <div>
-                            <div className="font-semibold text-zinc-100">Bachelor’s in Computer Engineering</div>
-                             <div className="mt-1 text-sm text-zinc-500">Universidad de La Frontera</div>
+                            <div className="font-semibold text-foreground">Bachelor’s in Computer Engineering</div>
+                            <div className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+                                Universidad de La Frontera.
+                            </div>
                         </div>
                     </div>
                 </div>

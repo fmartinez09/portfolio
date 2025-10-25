@@ -6,7 +6,8 @@ import { useState } from 'react'
 export default function Footer() {
   const [email, setEmail] = useState('')
   return (
-    <footer className="mt-16 border-t border-zinc-800/50">
+   <footer className="mt-16 border-t border-zinc-200/40 dark:border-white/10">
+
       <div className="mx-auto max-w-[720px] px-6 py-12 text-center">
         {/*
         <div className="flex items-center justify-center text-zinc-400">

@@ -27,6 +27,15 @@ export default function AboutSection() {
           clarity, performance and maintainability.
         </p>
       </motion.div>
+      <div className="mt-4">
+        <a
+          href="/cv.pdf"
+          className="inline-flex items-center gap-2 rounded-md border border-zinc-200/50 dark:border-white/10 px-3 py-2 text-sm font-medium text-foreground hover:bg-zinc-100/60 dark:hover:bg-white/10 transition"
+        >
+          View CV
+          <span aria-hidden>↗</span>
+        </a>
+      </div>
     </SectionRow>
   )
 }

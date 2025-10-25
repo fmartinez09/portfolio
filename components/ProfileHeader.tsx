@@ -94,9 +94,10 @@ export default function ProfileHeader() {
 
       {/* ubicación con separadores */}
       <div className="mt-4 flex items-center text-[12px] text-zinc-500 dark:text-zinc-500">
-        <span>CHL, Temuco</span>
-        <Dot className="mx-1 h-4 w-4 text-zinc-500 dark:text-zinc-600" />
+        <span>CL, Temuco</span>
         {/*
+        <Dot className="mx-1 h-4 w-4 text-zinc-500 dark:text-zinc-600" />
+        
         <span>−33.45° S</span>
         <Dot className="mx-1 h-4 w-4 text-zinc-500 dark:text-zinc-600" />
         <span>−70.66° W</span>
