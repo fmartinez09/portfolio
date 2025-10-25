@@ -1,11 +1,15 @@
-// components/MarkdownProse.tsx
 "use client";
 
 import React from "react";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-export default function MarkdownProse({ children }: { children: string }) {
+type MarkdownProseProps = {
+  children: string;
+  className?: string;
+};
+
+export default function MarkdownProse({ children, className }: MarkdownProseProps) {
   const components: Components = {
     h1: ({ node, ...props }) => (
       <h1 {...props} className="mt-10 mb-5 text-2xl md:text-3xl font-semibold tracking-tight" />
@@ -26,24 +30,17 @@ export default function MarkdownProse({ children }: { children: string }) {
       <ol {...props} className="my-6 ml-6 list-decimal space-y-2 marker:text-muted-foreground" />
     ),
     blockquote: ({ node, ...props }) => (
-      <blockquote
-        {...props}
-        className="my-6 border-l-2 pl-4 italic text-muted-foreground"
-      />
+      <blockquote {...props} className="my-6 border-l-2 pl-4 italic text-muted-foreground" />
     ),
     hr: ({ node, ...props }) => <hr {...props} className="my-10 border-border" />,
     a: ({ node, ...props }) => (
-      <a
-        {...props}
-        className="underline underline-offset-4 decoration-border hover:decoration-foreground"
-      />
+      <a {...props} className="underline underline-offset-4 decoration-border hover:decoration-foreground" />
     ),
     img: (props) => (
       // @ts-ignore
       <img {...props} className="my-6 w-full rounded-2xl border border-border shadow" />
     ),
-    code: ({ inline, ...props }: any) =>
-      inline ? <code {...props} /> : <code {...props} />,
+    code: ({ inline, ...props }: any) => (inline ? <code {...props} /> : <code {...props} />),
     pre: ({ node, ...props }) => (
       <pre
         {...props}
@@ -52,8 +49,11 @@ export default function MarkdownProse({ children }: { children: string }) {
     ),
   };
 
+  const base = "prose dark:prose-invert max-w-[680px] mx-auto";
+  const merged = [base, className].filter(Boolean).join(" ");
+
   return (
-    <article className="prose dark:prose-invert max-w-[680px] mx-auto">
+    <article className={merged}>
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={components}>
         {children}
       </ReactMarkdown>

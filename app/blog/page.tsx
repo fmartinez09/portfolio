@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getAllPosts } from "@/data/posts.server";
+import BlurredHeading from "@/components/BlurredHeading"; // 👈 importa el componente
 
 export const revalidate = 60;
 
@@ -41,22 +42,18 @@ export default function BlogIndex() {
           "after:content-[''] after:absolute after:inset-y-0 after:right-3 md:after:right-6 after:w-px after:bg-border",
         ].join(" ")}
       >
-        {/* Header */}
-        <header className="mx-auto max-w-3xl text-center">
-          <h1 className="text-[28px] md:text-[34px] font-semibold tracking-tight">
-            Blog
-          </h1>
-          <p className="mt-3 text-sm md:text-base text-muted-foreground leading-6">
-           Articles on databases, distributed systems, and the process behind my projects. Practical ideas for improving design, performance, and team collaboration.
-          </p>
-        </header>
+        {/* Header con efecto Framer */}
+        <BlurredHeading
+          title="Blog"
+          subtitle="Articles on databases, distributed systems, and the process behind my projects. Practical ideas for improving design, performance, and team collaboration."
+          className="pt-2"
+        />
 
         {/* HERO SIDE-BY-SIDE */}
         <article className="mx-auto mt-10 w-full max-w-5xl rounded-[28px] border border-border bg-card/80 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-card/70 overflow-hidden">
           <div className="flex flex-col md:flex-row">
             {/* Imagen izquierda */}
             <div className="md:w-1/2 aspect-square border-b md:border-b-0 md:border-r border-border">
-
               {latest.cover ? (
                 <Image
                   src={latest.cover}
@@ -73,7 +70,6 @@ export default function BlogIndex() {
 
             {/* Texto derecha */}
             <div className="md:w-1/2 p-5 md:p-6 flex flex-col justify-center gap-1.5">
-
               <div className="text-xs md:text-sm text-muted-foreground">
                 {fmt(latest.date)} · por {author}
               </div>

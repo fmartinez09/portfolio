@@ -3,10 +3,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPostBySlug } from "@/data/posts.server";
 import MarkdownProse from "@/components/MarkdownProse";
+import PostHeadingFx from "@/components/PostHeadingFx"; // 👈 importa el efecto
 
 export const revalidate = 60;
 
-// En tu runtime, params es un Promise:
 type ParamsPromise = Promise<{ slug: string }>;
 
 export async function generateMetadata(
@@ -31,23 +31,18 @@ export default async function PostPage(
       day: "numeric",
     });
 
-  // --- Preparar contenido ---
   const body = post.body ?? "";
-
-  // 1) quita H1 inicial si existe (por si el .md arranca con "# Título")
   const noH1 = body.replace(/^\s*# .*\n+/, "");
 
-  // 2) lead + resto con fallback seguro
   let lead = (post as any).excerpt?.trim() ?? "";
   let rest = noH1.trimStart();
 
   if (!lead) {
-    const m = /\n\s*\n/.exec(noH1); // primer párrafo hasta línea en blanco
+    const m = /\n\s*\n/.exec(noH1);
     if (m && m.index > 0) {
       lead = noH1.slice(0, m.index).trim();
       rest = noH1.slice(m.index + m[0].length).trimStart();
     } else {
-      // si no hay doble salto, no separamos: mostramos todo
       lead = "";
       rest = noH1 || body;
     }
@@ -59,38 +54,37 @@ export default async function PostPage(
   return (
     <main className="py-10">
       <div className="relative mx-auto max-w-3xl px-5 md:px-0">
-        {/* corte superior */}
         <div className="h-px w-full bg-border mb-8" />
 
-        {/* título + byline */}
-        <h1 className="text-[28px] md:text-[40px] font-semibold tracking-tight leading-tight">
-          {post.title}
-        </h1>
-        <div className="mt-2 text-[13px] text-muted-foreground">
-          {fmt(post.date)} <span className="mx-1">·</span> <strong>By {author}</strong>
-        </div>
+        {/* 👇 Título + meta + lead con efecto */}
+        <PostHeadingFx
+          title={post.title}
+          meta={`${fmt(post.date)} · By ${author}`}
+          lead={lead}
+        />
 
-        {/* lead */}
-        {lead && (
-          <p className="mt-5 text-[15px] md:text-[16px] leading-7 text-muted-foreground">
-            {lead}
-          </p>
-        )}
-
-        {/* cover dentro del post (como en la referencia) */}
+        {/* Cover 16:9 */}
         {post.cover && (
           <div className="mt-6 aspect-[16/9] overflow-hidden rounded-2xl border border-border">
-            <img
-              src={post.cover}
-              alt={post.title}
-              className="h-full w-full object-cover"
-            />
+            <img src={post.cover} alt={post.title} className="h-full w-full object-cover" />
           </div>
         )}
 
-        {/* cuerpo */}
+        {/* Cuerpo */}
         <div className="mt-8">
-          <MarkdownProse>{rest}</MarkdownProse>
+          <MarkdownProse
+  className="
+    prose-p:my-2 prose-p:leading-relaxed prose-p:text-[14.5px]
+    prose-li:my-1 prose-li:leading-relaxed prose-li:text-[14.5px]
+    prose-pre:my-4 prose-pre:text-[13.5px]
+    prose-code:text-[13px] prose-code:font-medium
+    prose-h2:mt-8 prose-h2:mb-3 prose-h2:text-[20px]
+    prose-h3:mt-6 prose-h3:mb-2 prose-h3:text-[17px]
+    prose-img:my-6
+  "
+>
+  {rest}
+</MarkdownProse>
         </div>
       </div>
     </main>
