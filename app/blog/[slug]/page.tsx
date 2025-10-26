@@ -52,48 +52,32 @@ export default async function PostPage(
   const author = (post as any).author ?? "Fernando Martínez";
 
   return (
-    <main className="py-6 md:py-8">
-      <div className="relative mx-auto max-w-2xl px-4 md:px-0">
-        <div className="h-px w-full bg-border mb-8" />
-
-        {/* 👇 Título + meta + lead con efecto */}
-        <PostHeadingFx
-          title={post.title}
-          meta={`${fmt(post.date)} · By ${author}`}
-          lead={lead}
-        />
-
-        {/* Cover 16:9 */}
-        {post.cover && (
-          <div className="mt-6 aspect-[16/9] overflow-hidden rounded-2xl border border-border">
-            <img src={post.cover} alt={post.title} className="h-full w-full object-cover" />
-          </div>
-        )}
-
-        {/* Cuerpo */}
-        <div className="mt-8">
-          <MarkdownProse
-            className="
-    /* texto general más compacto */
-    prose-p:mb-3 prose-p:leading-7 prose-p:text-[14.5px]
-    prose-li:my-0.5 prose-li:leading-7 prose-li:text-[14.5px]
-
-    /* code blocks súper compactos */
-    prose-pre:my-3 prose-pre:p-3 prose-pre:text-[12px] prose-pre:leading-[1.35]
-    prose-code:text-[12px] prose-code:leading-[1.35] prose-code:font-medium
-
-    /* titulares un poco más contenidos */
-    prose-h2:mt-7 prose-h2:mb-2 prose-h2:text-[19px]
-    prose-h3:mt-5 prose-h3:mb-2 prose-h3:text-[16px]
-
-    /* imágenes: menos espacio vertical */
-    prose-img:my-5
-  "
-          >
-            {rest}
-          </MarkdownProse>
+  <main className="py-6 md:py-8 pb-24 lg:pb-10">
+    <div className="relative mx-auto max-w-2xl px-4 md:px-0">
+      <div className="h-px w-full bg-border mb-8" />
+      <PostHeadingFx title={post.title} meta={`${fmt(post.date)} · By ${author}`} lead={lead} />
+      {post.cover && (
+        <div className="mt-6 aspect-[16/9] overflow-hidden rounded-2xl border border-border">
+          <img src={post.cover} alt={post.title} className="h-full w-full object-cover" />
         </div>
+      )}
+      <div className="mt-8">
+        <MarkdownProse
+          className="
+            prose prose-neutral dark:prose-invert prose-sm sm:prose-base max-w-none
+            prose-p:mb-3 prose-p:leading-7 prose-p:text-[14.5px]
+            prose-li:my-0.5 prose-li:leading-7 prose-li:text-[14.5px]
+            prose-pre:my-3 prose-pre:p-3 prose-pre:text-[12px] prose-pre:leading-[1.35] overflow-x-auto
+            prose-code:text-[12px] prose-code:leading-[1.35] prose-code:font-medium
+            prose-h2:mt-7 prose-h2:mb-2 prose-h2:text-[19px]
+            prose-h3:mt-5 prose-h3:mb-2 prose-h3:text-[16px]
+            prose-img:my-5
+          "
+        >
+          {rest}
+        </MarkdownProse>
       </div>
-    </main>
-  );
+    </div>
+  </main>
+);
 }

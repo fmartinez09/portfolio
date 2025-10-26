@@ -33,15 +33,15 @@ export default function BlogIndex() {
   const author = (latest as any).author ?? "Fernando Martínez";
 
   return (
-    <main className="py-10">
+    <main className="py-10 pb-24 lg:pb-10">
       {/* Rails laterales */}
       <div
-        className={[
-          "relative mx-auto max-w-6xl px-5 md:px-8",
-          "before:content-[''] before:absolute before:inset-y-0 before:left-3 md:before:left-6 before:w-px before:bg-border",
-          "after:content-[''] after:absolute after:inset-y-0 after:right-3 md:after:right-6 after:w-px after:bg-border",
-        ].join(" ")}
-      >
+      className={[
+        "relative mx-auto max-w-6xl px-5 md:px-8",
+        "before:content-[''] before:absolute before:inset-y-0 before:left-3 md:before:left-6 before:w-px before:bg-border",
+        "after:content-[''] after:absolute after:inset-y-0 after:right-3 md:after:right-6 after:w-px after:bg-border",
+      ].join(" ")}
+    >
         {/* Header con efecto Framer */}
         <BlurredHeading
           title="Blog"
@@ -49,11 +49,11 @@ export default function BlogIndex() {
           className="pt-2"
         />
 
-        {/* HERO SIDE-BY-SIDE */}
-        <article className="mx-auto mt-10 w-full max-w-5xl rounded-[28px] border border-border bg-card/80 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-card/70 overflow-hidden">
-          <div className="flex flex-col md:flex-row">
+        {/* HERO SIDE-BY-SIDE (compacto) */}
+        <article className="mx-auto mt-10 w-full max-w-4xl rounded-[28px] border border-border bg-card/80 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-card/70 overflow-hidden">
+          <div className="flex flex-col md:flex-row md:h-[320px]">
             {/* Imagen izquierda */}
-            <div className="md:w-1/2 aspect-square border-b md:border-b-0 md:border-r border-border">
+            <div className="md:w-1/2 aspect-[16/10] md:aspect-auto md:h-full border-b md:border-b-0 md:border-r border-border overflow-hidden">
               {latest.cover ? (
                 <Image
                   src={latest.cover}
@@ -69,12 +69,12 @@ export default function BlogIndex() {
             </div>
 
             {/* Texto derecha */}
-            <div className="md:w-1/2 p-5 md:p-6 flex flex-col justify-center gap-1.5">
-              <div className="text-xs md:text-sm text-muted-foreground">
-                {fmt(latest.date)} · por {author}
+            <div className="md:w-1/2 p-5 md:p-6 flex flex-col justify-center gap-1">
+              <div className="text-[11px] md:text-xs text-muted-foreground">
+                {fmt(latest.date)} · por {(latest as any).author ?? "Fernando Martínez"}
               </div>
 
-              <h2 className="mt-1 text-[20px] md:text-[24px] font-semibold leading-snug">
+              <h2 className="mt-1 text-[18px] md:text-[20px] font-semibold leading-snug">
                 <Link
                   href={`/blog/${latest.slug}`}
                   className="hover:underline decoration-foreground/30"
@@ -84,18 +84,18 @@ export default function BlogIndex() {
               </h2>
 
               {latest.category && (
-                <div className="mt-3">
-                  <span className="rounded-full bg-accent px-2 py-0.5 text-[11px] text-accent-foreground">
+                <div className="mt-2">
+                  <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] md:text-[11px] text-accent-foreground">
                     {latest.category}
                   </span>
                 </div>
               )}
 
-              <p className="mt-2 text-[14px] md:text-[15px] leading-6 text-muted-foreground">
+              <p className="mt-2 text-[13px] md:text-[14px] leading-6 text-muted-foreground line-clamp-3">
                 {latest.excerpt ?? take(latest.body ?? "")}
               </p>
 
-              <div className="mt-5">
+              <div className="mt-4">
                 <Link
                   href={`/blog/${latest.slug}`}
                   className="inline-flex items-center rounded-xl border border-border bg-secondary px-3 py-2 text-sm text-secondary-foreground hover:opacity-90"
@@ -106,6 +106,7 @@ export default function BlogIndex() {
             </div>
           </div>
         </article>
+
 
         {/* Línea divisoria */}
         <div className="relative mt-10">

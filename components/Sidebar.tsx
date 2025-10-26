@@ -1,7 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { Home, Layers, PenSquare, Mail, Search, PersonStanding } from 'lucide-react'
+import { Home, PenSquare, PlusCircle } from "lucide-react";
 import ThemeToggle from './ThemeToggle'
 
 const items = [
@@ -9,7 +9,7 @@ const items = [
   // { href: '/work', icon: Layers, label: 'Work' },
   { href: '/blog', icon: PenSquare, label: 'Blog' },
   // { href: '/contact', icon: Mail, label: 'Contact' },
-   { href: '/about', icon: PersonStanding, label: 'About' },
+   { href: '/about', icon: PlusCircle, label: 'About' },
   // { href: '/search', icon: Search, label: 'Search' },
 ]
 

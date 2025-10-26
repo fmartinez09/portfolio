@@ -4,10 +4,11 @@ import SectionRow from '@/components/SectionRow'
 
 export default function AboutPage() {
     return (
-        <main className="space-y-12 md:space-y-16 pt-12 md:pt-32">
-            <AboutSection />
+         <main className="mx-auto max-w-3xl md:max-w-4xl px-4 sm:px-6 pt-16 md:pt-32 pb-24 lg:pb-10 space-y-12 md:space-y-16">
+
+      <AboutSection />
             {/* Experience */}
-            <SectionRow label="Experience" size="sm">
+             <SectionRow label="Experience" size="sm">
                 <div className="space-y-6">
                     {/* Fullstack Developer */}
                     <div className="grid grid-cols-[160px_minmax(0,1fr)] items-start gap-6">
@@ -36,7 +37,7 @@ export default function AboutPage() {
             </SectionRow>
 
             {/* Education */}
-            <SectionRow label="Education" size="sm">
+             <SectionRow label="Education" size="sm">
                 <div className="space-y-6">
                     <div className="grid grid-cols-[160px_minmax(0,1fr)] items-start gap-6">
                         <div className="text-sm text-zinc-600 dark:text-zinc-500">March 2019 — March 2024</div>

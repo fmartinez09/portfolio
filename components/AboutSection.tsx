@@ -29,7 +29,7 @@ export default function AboutSection() {
       </motion.div>
       <div className="mt-4">
         <a
-          href="/cv.pdf"
+          href="/cv_fernando_martinez.pdf"
           className="inline-flex items-center gap-2 rounded-md border border-zinc-200/50 dark:border-white/10 px-3 py-2 text-sm font-medium text-foreground hover:bg-zinc-100/60 dark:hover:bg-white/10 transition"
         >
           View CV
