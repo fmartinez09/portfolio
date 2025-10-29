@@ -106,8 +106,8 @@ export default function ProfileHeader() {
 
       {/* about breve */}
       <p className="mx-auto mt-8 max-w-[680px] text-[15px] leading-8 text-zinc-600 dark:text-zinc-300">
-        I'm a software engineer focused on distributed systems and databases — specializing in fault-tolerant storage engines, consensus protocols, query processing, and high-reliability, low-latency architectures.
-        My work revolves around building and understanding robust storage and query layers that form the backbone of modern data infrastructure.
+        I'm a software engineer focused on distributed systems and databases — learning fault-tolerant storage engines, consensus protocols, query processing, and high-reliability, low-latency architectures.
+        Interested in building and understanding robust storage and query layers that form the backbone of modern data infrastructure.
       </p>
     </header>
   )
