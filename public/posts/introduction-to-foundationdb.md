@@ -1,6 +1,6 @@
 ---
 title: "Introduction to FoundationDB"
-date: "2025-09-29"
+date: "2025-09-20"
 category: "Engineering"
 author: "Fernando Martínez"
 cover: "/images/neuron.avif"
