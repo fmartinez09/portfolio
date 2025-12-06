@@ -327,62 +327,9 @@ The invariant is:
 
 ---
 
-## 6. How it All Connects
+## 6. How the DD discovers that job and breaks it down into tasks
 
-Putting it all together:
-
-1. **Job submission (Management API – `submitBulkLoadJob`)**
-    - Validates that the job is admissible.
-    - Writes:
-        - a task state map over `jobRange` under `bulkLoadTaskPrefix`,
-        - the job metadata under `bulkLoadJobPrefix`,
-        - a range lock for `jobRange`.
-    - Commits these as system keys.
-        
-        At this point, the job and an initial task map exist as persistent metadata.
-        
-2. **Task orchestration (Data Distributor – `bulkLoadJobNewTask`)**
-    - For a given set of manifests:
-        - computes `taskRange = generateBulkLoadTaskRange(manifests, jobRange)`,
-        - checks for an existing task via `bulkLoadJobFindTask`,
-        - if none exists, creates a new task via `bulkLoadJobSubmitTask`.
-3. **Task execution (bulk load task engine)**
-    - Independent actors (often on StorageServers) read task metadata under `bulkLoadTaskPrefix`.
-    - They perform the actual data load:
-        - read manifests and SSTs,
-        - filter keys by `taskRange`,
-        - write data into the storage engine.
-    - They update `BulkLoadTaskState` to reflect completion or error.
-4. **System keyspace as coordination layer**
-    - The Management API, Data Distributor, and task engine **do not share in-memory objects**.
-    - Instead, they coordinate through a structured set of metadata in the system keyspace (`\xff/...`), mostly under:
-        - `bulkLoadJobPrefix`,
-        - `bulkLoadTaskPrefix`,
-        - range lock keys.
-
-The initial code in `submitBulkLoadJob`:
-
-```cpp
-wait(krmSetRange(&tr, bulkLoadTaskPrefix, jobState.getJobRange(), bulkLoadTaskStateValue(BulkLoadTaskState())));
-wait(krmSetRange(&tr, bulkLoadJobPrefix, jobState.getJobRange(), bulkLoadJobValue(jobState)));
-wait(takeExclusiveReadLockOnRange(&tr, jobState.getJobRange(), rangeLockNameForBulkLoad));
-wait(tr.commit());
-```
-
-is the **foundation** on top of which:
-
-- `generateBulkLoadTaskRange`,
-- `bulkLoadJobNewTask`,
-- `bulkLoadJobFindTask`,
-- and `bulkLoadJobSubmitTask`
-
-operate. They treat this metadata as the canonical source of truth for job and task state, and build the entire bulk load scheduling and execution logic around it.
-
----
-
-## 7. How the DD discovers that job and breaks it down into tasks
-
-### 7.1 Discovering the job from system keys
+### 6.1 Discovering the job from system keys
 
 When submitBulkLoadJob commits, the bulk load job no longer lives only as a BulkLoadJobState object inside the Management API. It also exists as a set of entries under bulkLoadJobPrefix and bulkLoadTaskPrefix in the system keyspace. From the Data Distributor’s point of view, discovering a job simply means:
 
@@ -390,7 +337,7 @@ When submitBulkLoadJob commits, the bulk load job no longer lives only as a Bulk
 
 Internally, the DD reconstructs a logical view `KeyRangeMap<BulkLoadJobState>` and `KeyRangeMap<BulkLoadTaskState>` from those keys and identifies ranges where a job is present and tasks need to be scheduled.
 
-### 7.2 From job metadata to a job manager
+### 6.2 From job metadata to a job manager
 
 For each discovered job range, the DD instantiates a job manager that owns the coordination logic for that jobId. This manager is responsible for:
 
@@ -400,7 +347,7 @@ For each discovered job range, the DD instantiates a job manager that owns the c
 
 Crucially, the job manager never keeps the job state only in memory: any decision that matters (new task creation, status changes, errors) is reflected back into the system-key KeyRangeMaps, so that the state is recoverable and observable cluster-wide.
 
-### 7.3 Deriving task ranges from manifests
+### 6.3 Deriving task ranges from manifests
 
 Once a job manager knows there is work to do, it needs input manifests. The DD (or a helper actor) downloads or reads manifest metadata from the configured location (jobRoot), building a BulkLoadManifestSet. From this set, the DD computes the effective task range using generateBulkLoadTaskRange:
 
@@ -419,7 +366,7 @@ This definition ensures that:
 - The task covers exactly the span of keys described by its manifests.
 - The task range never escapes the job’s `jobRange`. Any keys in SSTs outside that range will later be filtered out at the Storage Server level.
 
-### 7.4 Creating tasks and ensuring idempotency
+### 6.4 Creating tasks and ensuring idempotency
 
 Given a BulkLoadManifestSet and the computed taskRange, the DD follows a three-step pattern to create tasks:
 
@@ -447,9 +394,9 @@ Given a BulkLoadManifestSet and the computed taskRange, the DD follows a three-s
 
 Once committed, the task is **just metadata in the system keyspace**, but that is enough: Storage Servers and other task-engine actors will pick it up, execute it, and update the status back in the map.
 
-## 8. How Storage Servers execute BulkLoad when the DD marks moves as *_BULKLOAD.
+## 7. How Storage Servers execute BulkLoad when the DD marks moves as *_BULKLOAD.
 
-### 8.1 From *_BULKLOAD moves to task execution
+### 7.1 From *_BULKLOAD moves to task execution
 
 From the Storage Server’s perspective, bulk load execution is triggered by a combination of two signals:
 
@@ -462,7 +409,7 @@ A bulk-load-aware Storage Server runs actors that:
 - Filter tasks by state (e.g., `Submitted`/`Running`).
 - Start a dedicated “bulk load task engine” to process the manifests and ingest data into the local storage engine.
 
-### 8.2 Reading manifests and SSTs
+### 7.2 Reading manifests and SSTs
 
 Once a Storage Server picks up a task, the bulk load task engine retrieves the manifest information (the same BulkLoadManifestSet described on the DD side) and starts reading the referenced SST files:
 
@@ -475,7 +422,7 @@ In both cases, the Storage Server reconstructs a local view of:
 - The key ranges and approximate sizes of each file.
 - Any additional metadata needed by the underlying storage engine (RocksDB, Redwood, etc.).
 
-### 8.3 Enforcing taskRange and key/value limits
+### 7.3 Enforcing taskRange and key/value limits
 
 Aquí enganchas la discusión anterior sobre el límite de key/value (la issue del foro que citaste):
 
@@ -496,9 +443,7 @@ Before actually ingesting data, the bulk load task engine must enforce two criti
 
 With these checks, bulk ingestion preserves the same safety properties that normal transactional writes enforce at the commit path, even though BulkLoad itself lives outside that path.
 
-### 8.4 Physical vs. logical ingestion in the storage engine
-
-Aquí puedes introducir la diferencia conceptual entre engines (RocksDB vs Redwood) sin irte a otro artículo completo:
+### 7.4 Physical vs. logical ingestion in the storage engine
 
 The final step is to translate filtered SST contents into writes on the underlying storage engine:
 
@@ -511,7 +456,7 @@ The final step is to translate filtered SST contents into writes on the underlyi
 
 In both cases, the Storage Server updates the storage engine in large, streaming batches, respecting `taskRange` and size limits, and without involving the normal transaction pipeline (proxies, TLogs, etc.).
 
-### 8.5 Task completion and feedback to the DD
+### 7.5 Task completion and feedback to the DD
 
 After the ingestion completes (or fails), the Storage Server updates the corresponding BulkLoadTaskState under bulkLoadTaskPrefix to reflect the outcome:
 
