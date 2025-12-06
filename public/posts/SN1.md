@@ -424,8 +424,6 @@ In both cases, the Storage Server reconstructs a local view of:
 
 ### 7.3 Enforcing taskRange and key/value limits
 
-Aquí enganchas la discusión anterior sobre el límite de key/value (la issue del foro que citaste):
-
 Before actually ingesting data, the bulk load task engine must enforce two critical invariants:
 
 1. **Range safety:**
