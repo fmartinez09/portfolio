@@ -1,6 +1,6 @@
 ---
 title: "Inside FoundationDB Bulk Load: From System Keys to SST Ingestion in Storage Servers"
-date: "2025-11-27"
+date: "2025-12-05"
 category: "FoundationDB"
 author: "Fernando Martínez"
 cover: "/images/bulkload-cover.jpg"
