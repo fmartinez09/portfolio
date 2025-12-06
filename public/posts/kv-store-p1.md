@@ -219,9 +219,9 @@ ACTOR Future<Void> readBulkFileBytes(std::string path, int64_t maxLength, std::s
 
 In short:
 
-- **Flow** provides the asynchronous interface and deterministic test harness.
-- **IAsyncFile / IAsyncFileSystem** define the I/O API.
-- **Platform.actor.cpp** implements POSIX calls (pwrite, pread, fsync).
+- Flow provides the asynchronous interface and deterministic test harness.
+- IAsyncFile / IAsyncFileSystem define the I/O API.
+- Platform.actor.cpp implements POSIX calls (pwrite, pread, fsync).
 - Higher layers (e.g., Redwood, BulkLoad, TLog) use these building blocks.
 
 The pattern looks like:
