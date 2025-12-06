@@ -3,7 +3,7 @@ title: "Inside FoundationDB Bulk Load: From System Keys to SST Ingestion in Stor
 date: "2025-11-27"
 category: "FoundationDB"
 author: "Fernando Martínez"
-cover: "/images/shanghai-port.png"
+cover: "/images/bulkload-cover.jpg"
 excerpt: "How submitBulkLoadJob Materializes a Bulk Load Job as Metadata in the System Keyspace"
 ---
 
